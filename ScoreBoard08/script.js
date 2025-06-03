@@ -27,7 +27,10 @@ $(document).ready(function () {
     if (score.wickets < 10) {
       score.wickets += 1;
       updateUI();
-      $("status").text("Added 1 Wicket").css("color", "red");
+      $("#status").text("Added 1 Wicket").css("color", "red");
+    } else {
+      updateUI();
+      $("#status").text("All out").css("color", "red");
     }
   });
 
@@ -37,8 +40,8 @@ $(document).ready(function () {
       updateUI();
       $("#status").text("Added 1 ball").css("color", "blue");
     } else {
-      updateUI();
       $("#status").text("All out").css("color", "red");
+      updateUI();
     }
   });
 
@@ -46,7 +49,7 @@ $(document).ready(function () {
     score = { runs: 0, wickets: 0, balls: 0 };
     localStorage.removeItem("score");
     updateUI();
-    $("status").text("Score reset").css("color", "pink");
+    $("#status").text("Score reset").css("color", "black");
   });
 
   updateUI();
