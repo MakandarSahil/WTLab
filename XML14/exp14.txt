@@ -83,4 +83,3 @@ You can validate both files:
 
 ---
 
-Let me know if you want a program to read and validate XML + DTD using Python or Java.
