@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voter Registration Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+      input,
+      textarea,
+      button {
+        padding: 8px;
+        width: 300px;
+        margin-top: 5px;
+      }
+      #result {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+      .error {
+        color: red;
+      }
+      .success {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Voter Registration Form</h2>
+
+    <form id="voterForm" onsubmit="return validateForm()">
+      <label for="name">Enter Name: </label>
+      <input type="text" id="name" />
+
+      <label for="dob">Date of Birth: </label>
+      <input type="date" id="dob" />
+
+      <label for="aadhaar">Aadhaar Number: </label>
+      <input type="number" id="aadhaar" minlength="12" maxlength="12" />
+
+      <label for="email">EMAIL ID: </label>
+      <input type="email" id="email" />
+
+      <label for="address">Address: </label>
+      <textarea name="a" id="address"></textarea>
+
+      <br />
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+      function validateForm() {
+        const name = document.getElementById("name").value.trim();
+        const dob = document.getElementById("dob").value;
+        const aadhaar = document.getElementById("aadhaar").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const address = document.getElementById("address").value.trim();
+        const resultDiv = document.getElementById("result");
+
+        resultDiv.className = "";
+        resultDiv.textContent = "";
+
+        // validations
+
+        if (!name) {
+          showError("Name is Required !!");
+          return false;
+        }
+
+        if (!dob) {
+          showError("Date of Birth is Required !!");
+          return false;
+        }
+
+        const dobDate = new Date(dob);
+        const today = new Date();
+
+        const age = today.getFullYear() - dobDate.getFullYear();
+
+        if (age < 18) {
+          showError("You Must be atleast 18 years old to register !!");
+          return false;
+        }
+
+        const adharPattern = /^\d{12}$/;
+        if (!adharPattern.test(aadhaar)) {
+          showError("Aadhaar number must be exactly 12 digits !!");
+        }
+
+        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        if (!emailPattern.test(email)) {
+          showError("Invalid email format !!");
+          return false;
+        }
+
+        if (!address) {
+          showError("Address is required !!");
+          return false;
+        }
+
+        resultDiv.className = "success";
+        resultDiv.textContent = "Registration successfull!";
+
+        return false; //prevent actual form submission for demo
+      }
+
+      function showError(message) {
+        const resultDiv = document.getElementById("result");
+        resultDiv.className = "error";
+        resultDiv.textContent = message;
+      }
+    </script>
+  </body>
+</html>
