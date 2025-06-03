@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Racing Animation</title>
+    <style>
+      body {
+        font-family: Arial;
+      }
+      .track {
+        margin-top: 30px;
+        position: relative;
+        height: 100px;
+        border: 2px dashed #444;
+        background: #eee;
+      }
+      .racer {
+        position: absolute;
+        top: 10px;
+        left: 0;
+        height: 80px;
+        width: 120px;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 80px;
+        border-radius: 10px;
+      }
+      #racer1 {
+        background-color: #ff4444;
+      }
+      #racer2 {
+        background-color: #44cc44;
+      }
+      #racer3 {
+        background-color: #4444ff;
+      }
+
+      #result {
+        font-weight: bold;
+        font-size: 18px;
+        color: green;
+        margin-top: 20px;
+      }
+
+      button {
+        padding: 10px 15px;
+        font-size: 16px;
+        margin-top: 20px;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Car Race Using Colored Blocks</h2>
+
+    <div class="track"><div class="racer" id="racer1">Car 1</div></div>
+    <div class="track"><div class="racer" id="racer2">Car 2</div></div>
+    <div class="track"><div class="racer" id="racer3">Car 3</div></div>
+
+    <br />
+    <button id="start">Start Race</button>
+    <button id="stop">Stop Race</button>
+
+    <div id="result"></div>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        let raceOngoing = false;
+        const finishLine = $(window).width() - 150;
+
+        function resetRace() {
+          $(".racer").stop().css("left", "0");
+          $("#result").text("");
+          raceOngoing = false;
+        }
+
+        $("#start").click(function () {
+          if (raceOngoing) return;
+          raceOngoing = true;
+          resetRace();
+          $("#result").text("Race Started !!");
+
+          let finished = [];
+          $(".racer").each(function () {
+            let duration = Math.random() * 3000 + 2000;
+            let self = $(this);
+            self.animate({ left: finishLine }, duration, function () {
+              finished.push({
+                id: self.attr("id"),
+                time: duration,
+              });
+
+              if (finished.length === $(".racer").length) {
+                finished.sort((a, b) => a.time - b.time);
+                $("#result").html(
+                  `Winner : <strong>${finished[0].id.toUpperCase()}</strong> in ${Math.floor(
+                    finished[0].time
+                  )} ms`
+                );
+                raceOngoing = false;
+              }
+            });
+          });
+        });
+
+        $("#stop").click(function () {
+          $(".racer").stop();
+          $("#result").text("Race Stopped !!");
+          raceOngoing = false;
+        });
+      });
+    </script>
+  </body>
+</html>
