@@ -1,0 +1,86 @@
+Here’s a step-by-step guide and example to **create a valid XML document** using:
+
+* ✅ **Internal DTD**
+* ✅ **External DTD**
+
+---
+
+## 🔶 1. XML with Internal DTD
+
+### 📁 `student_internal.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE students [
+    <!ELEMENT students (student+)>
+    <!ELEMENT student (name, rollno, branch)>
+    <!ELEMENT name (#PCDATA)>
+    <!ELEMENT rollno (#PCDATA)>
+    <!ELEMENT branch (#PCDATA)>
+]>
+<students>
+    <student>
+        <name>Sahil</name>
+        <rollno>101</rollno>
+        <branch>CSE</branch>
+    </student>
+    <student>
+        <name>Riya</name>
+        <rollno>102</rollno>
+        <branch>IT</branch>
+    </student>
+</students>
+```
+
+---
+
+## 🔷 2. XML with External DTD
+
+### 📁 `student_external.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE students SYSTEM "student.dtd">
+<students>
+    <student>
+        <name>Raj</name>
+        <rollno>103</rollno>
+        <branch>ECE</branch>
+    </student>
+</students>
+```
+
+### 📁 `student.dtd`
+
+```dtd
+<!ELEMENT students (student+)>
+<!ELEMENT student (name, rollno, branch)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT rollno (#PCDATA)>
+<!ELEMENT branch (#PCDATA)>
+```
+
+---
+
+## ✅ How to Validate XML
+
+You can validate both files:
+
+* In **Visual Studio Code**, use XML extensions like `XML Tools` or `XML Language Support by Red Hat`.
+* Or use **online validator** like:
+  👉 [https://www.xmlvalidation.com/](https://www.xmlvalidation.com/)
+
+---
+
+## 💡 Summary of XML Components
+
+| Component    | Description                              |
+| ------------ | ---------------------------------------- |
+| Prolog       | `<?xml version="1.0"?>`                  |
+| Root Element | `<students>...</students>`               |
+| DTD          | Declares allowed structure & elements    |
+| PCDATA       | Parsed Character Data (Text inside tags) |
+
+---
+
+Let me know if you want a program to read and validate XML + DTD using Python or Java.

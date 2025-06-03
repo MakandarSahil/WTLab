@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE students SYSTEM "student.dtd">
+<students>
+    <student>
+        <name>Raj</name>
+        <rollno>103</rollno>
+        <branch>ECE</branch>
+    </student>
+</students>
