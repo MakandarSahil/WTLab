@@ -1,0 +1,101 @@
+Here's a **Java program** that demonstrates **navigating the Document Object Model (DOM) tree** using the `DOM` parser to read and traverse an XML document.
+
+---
+
+### ✅ XML File: `priceList.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<priceList>
+    <item>
+        <name>Pen</name>
+        <price>10</price>
+    </item>
+    <item>
+        <name>Notebook</name>
+        <price>25</price>
+    </item>
+</priceList>
+```
+
+---
+
+### ✅ Java Program: `DOMTreeNavigator.java`
+
+```java
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.*;
+
+import java.io.File;
+
+public class DOMTreeNavigator {
+    public static void main(String[] args) {
+        try {
+            // Step 1: Create Document Object
+            File xmlFile = new File("priceList.xml");
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(xmlFile);
+            document.getDocumentElement().normalize();
+
+            // Step 2: Get Root Element
+            Element root = document.getDocumentElement();
+            System.out.println("Root Element: " + root.getNodeName());
+
+            // Step 3: Traverse DOM Tree
+            traverseNode(root, "  ");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Recursive method to traverse nodes
+    private static void traverseNode(Node node, String indent) {
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+            System.out.println(indent + "Node: " + node.getNodeName());
+
+            if (node.hasChildNodes()) {
+                NodeList children = node.getChildNodes();
+                for (int i = 0; i < children.getLength(); i++) {
+                    traverseNode(children.item(i), indent + "  ");
+                }
+            }
+        } else if (node.getNodeType() == Node.TEXT_NODE) {
+            String value = node.getNodeValue().trim();
+            if (!value.isEmpty()) {
+                System.out.println(indent + "Value: " + value);
+            }
+        }
+    }
+}
+```
+
+---
+
+### 🧠 Key Concepts Demonstrated:
+
+| Concept                 | Code Reference                                        |
+| ----------------------- | ----------------------------------------------------- |
+| **DOM**                 | `DocumentBuilderFactory`, `Document`                  |
+| **Root Element**        | `document.getDocumentElement()`                       |
+| **Node Interface**      | `getNodeName()`, `hasChildNodes()`, `getChildNodes()` |
+| **NodeList Interface**  | `NodeList`, `getLength()`, `item(int)`                |
+| **Recursive Traversal** | `traverseNode()` method                               |
+
+---
+
+### ✅ To Compile and Run:
+
+1. Save both files (`priceList.xml` and `DOMTreeNavigator.java`) in the same folder.
+2. Open terminal or command prompt:
+
+```bash
+javac DOMTreeNavigator.java
+java DOMTreeNavigator
+```
+
+---
+
+Let me know if you’d like the output or want a version in Python or another language.

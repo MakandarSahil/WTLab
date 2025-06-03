@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<priceList>
+    <item>
+        <name>Pen</name>
+        <price>10</price>
+    </item>
+    <item>
+        <name>Notebook</name>
+        <price>25</price>
+    </item>
+</priceList>
